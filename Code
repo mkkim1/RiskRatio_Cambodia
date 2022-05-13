@@ -26,8 +26,8 @@ putexcel D4= (exp(_b[lnrr]-invnormal(1-.05/2)*_se[lnrr]))
 putexcel E4= (exp(_b[lnrr]+invnormal(1-.05/2)*_se[lnrr]))          
 
 *Delivery 
-logistic pnc wealth [pw=wgt] //Odds ratio 
-margins, at(wealth= (1 5)) post //marginal mean - predicted value 
+logistic pnc wealth [pw=wgt] 
+margins, at(wealth= (1 5)) post 
 nlcom (lnrr: ln(_b[2._at]/_b[1._at])), post 
      
 putexcel A5= "Delivery"
@@ -38,15 +38,15 @@ putexcel E5= (exp(_b[lnrr]+invnormal(1-.05/2)*_se[lnrr]))
 
 
 *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*2) urban (1) /rural (2) 
+*2) rural (1) / urban (2) 
 putexcel G2="Residence" 
 putexcel G3= "RR"
 putexcel H3="95% CI"
 
 *ANC 
-logistic all55 residence [pw=wgt] //Odds ratio 
-margins, at(residence= (1 2)) post //marginal mean - predicted value 
-nlcom (lnrr: ln(_b[1._at]/_b[2._at])), post //flip the order since urban is 1 
+logistic all55 residence [pw=wgt] 
+margins, at(residence= (1 2)) post
+nlcom (lnrr: ln(_b[2._at]/_b[1._at])), post 
       
 putexcel F4=(r(N))
 putexcel G4= (exp(_b[lnrr]))
@@ -56,7 +56,7 @@ putexcel I4= (exp(_b[lnrr]+invnormal(1-.05/2)*_se[lnrr]))
 *Delivery 
 logistic pnc residence [pw=wgt] //Odds ratio 
 margins, at(residence= (1 2)) post //marginal mean - predicted value 
-nlcom (lnrr: ln(_b[1._at]/_b[2._at])), post 
+nlcom (lnrr: ln(_b[2._at]/_b[1._at])), post 
      
 putexcel F5=(r(N))
 putexcel G5= (exp(_b[lnrr]))
@@ -70,8 +70,8 @@ putexcel K3 = "RR"
 putexcel K3 = "95% CI"
 
 *ANC 
-logistic all55 edu [pw=wgt] //Odds ratio 
-margins, at(edu= (1 3)) post //marginal mean - predicted value 
+logistic all55 edu [pw=wgt] 
+margins, at(edu= (1 3)) post 
 nlcom (lnrr: ln(_b[2._at]/_b[1._at])), post 
       
 putexcel J4=(r(N))
@@ -80,8 +80,8 @@ putexcel L4= (exp(_b[lnrr]-invnormal(1-.05/2)*_se[lnrr]))
 putexcel M4= (exp(_b[lnrr]+invnormal(1-.05/2)*_se[lnrr]))          
 
 *Delivery 
-logistic pnc edu [pw=wgt] //Odds ratio 
-margins, at(edu= (1 3)) post //marginal mean - predicted value 
+logistic pnc edu [pw=wgt] 
+margins, at(edu= (1 3)) post 
 nlcom (lnrr: ln(_b[2._at]/_b[1._at])), post 
 
 putexcel J5=(r(N))
@@ -92,16 +92,15 @@ putexcel M5= (exp(_b[lnrr]+invnormal(1-.05/2)*_se[lnrr]))
 *******************************************************************************
 *Sick child care  
 *******************************************************************************
-u "$analysis\Cambodia_child_equity_final.dta", clear
+use "$analysis\Cambodia_child_equity_final.dta", clear
 svyset [pw=wgt],psu(v021) strata(v023) 
 putexcel set /// file path here 
-
 
 *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 *1) wealth quintile - wealthiest (5) / poorest (1)
 *Diarrhea 
-logistic given_ORS wealth [pw=wgt] //Odds ratio 
-margins, at(wealth= (1 5)) post //marginal mean - predicted value 
+logistic given_ORS wealth [pw=wgt] 
+margins, at(wealth= (1 5)) post 
 nlcom (lnrr: ln(_b[2._at]/_b[1._at])), post 
 
 putexcel A6="Diarrhea" 
@@ -111,8 +110,8 @@ putexcel D6= (exp(_b[lnrr]-invnormal(1-.05/2)*_se[lnrr]))
 putexcel E6= (exp(_b[lnrr]+invnormal(1-.05/2)*_se[lnrr]))          
 
 *Pneumonia 
-logistic anti_ARI wealth [pw=wgt] //Odds ratio 
-margins, at(wealth= (1 5)) post //marginal mean - predicted value 
+logistic anti_ARI wealth [pw=wgt] 
+margins, at(wealth= (1 5)) post 
 nlcom (lnrr: ln(_b[2._at]/_b[1._at])), post 
      
 putexcel A7= "Pneumonia"
@@ -122,8 +121,8 @@ putexcel D7= (exp(_b[lnrr]-invnormal(1-.05/2)*_se[lnrr]))
 putexcel E7= (exp(_b[lnrr]+invnormal(1-.05/2)*_se[lnrr]))          
 
 *Fever 
-logistic malaria_tested wealth [pw=wgt] //Odds ratio 
-margins, at(wealth= (1 5)) post //marginal mean - predicted value 
+logistic malaria_tested wealth [pw=wgt]
+margins, at(wealth= (1 5)) post 
 nlcom (lnrr: ln(_b[2._at]/_b[1._at])), post 
 
 putexcel A8= "Fever"
@@ -134,12 +133,12 @@ putexcel E8= (exp(_b[lnrr]+invnormal(1-.05/2)*_se[lnrr]))
 
 
 *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*2) urban (1) /rural (2) 
+*2) rural (1) / urban (2) 
 
 *Diarrhea
-logistic given_ORS residence [pw=wgt] //Odds ratio 
-margins, at(residence= (1 2)) post //marginal mean - predicted value 
-nlcom (lnrr: ln(_b[1._at]/_b[2._at])), post //flip the order since urban is 1 
+logistic given_ORS residence [pw=wgt] 
+margins, at(residence= (1 2)) post 
+nlcom (lnrr: ln(_b[2._at]/_b[1._at])), post 
       
 putexcel F6=(r(N))
 putexcel G6= (exp(_b[lnrr]))
@@ -147,9 +146,9 @@ putexcel H6= (exp(_b[lnrr]-invnormal(1-.05/2)*_se[lnrr]))
 putexcel I6= (exp(_b[lnrr]+invnormal(1-.05/2)*_se[lnrr]))          
 
 *Pneumonia
-logistic anti_ARI residence [pw=wgt] //Odds ratio 
-margins, at(residence= (1 2)) post //marginal mean - predicted value 
-nlcom (lnrr: ln(_b[1._at]/_b[2._at])), post 
+logistic anti_ARI residence [pw=wgt] 
+margins, at(residence= (1 2)) post 
+nlcom (lnrr: ln(_b[2._at]/_b[1._at])), post 
      
 putexcel F7=(r(N))
 putexcel G7= (exp(_b[lnrr]))
@@ -157,9 +156,9 @@ putexcel H7= (exp(_b[lnrr]-invnormal(1-.05/2)*_se[lnrr]))
 putexcel I7= (exp(_b[lnrr]+invnormal(1-.05/2)*_se[lnrr]))  
 
 *Fever 
-logistic malaria_tested residence [pw=wgt] //Odds ratio 
-margins, at(residence= (1 2)) post //marginal mean - predicted value 
-nlcom (lnrr: ln(_b[1._at]/_b[2._at])), post 
+logistic malaria_tested residence [pw=wgt] 
+margins, at(residence= (1 2)) post 
+nlcom (lnrr: ln(_b[2._at]/_b[1._at])), post 
 
 putexcel F8=(r(N))
 putexcel G8= (exp(_b[lnrr]))
@@ -171,8 +170,8 @@ putexcel I8= (exp(_b[lnrr]+invnormal(1-.05/2)*_se[lnrr]))
 *3) women's education - no education (1) / secondary and higher (3)
 
 *Diarrhea 
-logistic given_ORS edu [pw=wgt] //Odds ratio 
-margins, at(edu= (1 3)) post //marginal mean - predicted value 
+logistic given_ORS edu [pw=wgt]  
+margins, at(edu= (1 3)) post 
 nlcom (lnrr: ln(_b[2._at]/_b[1._at])), post 
       
 putexcel J6=(r(N))
@@ -181,8 +180,8 @@ putexcel L6= (exp(_b[lnrr]-invnormal(1-.05/2)*_se[lnrr]))
 putexcel M6= (exp(_b[lnrr]+invnormal(1-.05/2)*_se[lnrr]))          
 
 *Pneumonia
-logistic anti_ARI edu [pw=wgt] //Odds ratio 
-margins, at(edu= (1 3)) post //marginal mean - predicted value 
+logistic anti_ARI edu [pw=wgt] 
+margins, at(edu= (1 3)) post 
 nlcom (lnrr: ln(_b[2._at]/_b[1._at])), post 
 
 putexcel J7=(r(N))
@@ -191,8 +190,8 @@ putexcel L7= (exp(_b[lnrr]-invnormal(1-.05/2)*_se[lnrr]))
 putexcel M7= (exp(_b[lnrr]+invnormal(1-.05/2)*_se[lnrr]))      
 
 *Fever
-logistic malaria_tested edu [pw=wgt] //Odds ratio 
-margins, at(edu= (1 3)) post //marginal mean - predicted value 
+logistic malaria_tested edu [pw=wgt] 
+margins, at(edu= (1 3)) post 
 nlcom (lnrr: ln(_b[2._at]/_b[1._at])), post 
 
 putexcel J8=(r(N))
