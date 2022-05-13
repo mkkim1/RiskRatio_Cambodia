@@ -5,13 +5,11 @@
 *Maternal Health 
 *******************************************************************************
 u "$analysis\Cambodia_women_equity_final.dta", clear
-drop card //not used anymore 
 svyset [pw=wgt],psu(v021) strata(v023) 
-keep if year==2014 
-putexcel set "G:\My Drive\KOFIH QuEST\results\inequality_Cambodia.xlsx", sheet(Stata) modify
+putexcel set ///file path 
 
 *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*1) Wealth inequality - wealthiest (2) / poorest (1)
+*1) Wealth inequality - wealthiest (5) / poorest (1)
 putexcel C2= "Wealth"
 putexcel C3= "RR"
 putexcel D3="95% CI"
@@ -95,14 +93,12 @@ putexcel M5= (exp(_b[lnrr]+invnormal(1-.05/2)*_se[lnrr]))
 *Sick child care  
 *******************************************************************************
 u "$analysis\Cambodia_child_equity_final.dta", clear
-drop card //not used anymore 
 svyset [pw=wgt],psu(v021) strata(v023) 
-keep if year==2014 
-putexcel set "G:\My Drive\KOFIH QuEST\results\inequality_Cambodia.xlsx", sheet(Stata) modify
+putexcel set /// file path here 
 
 
 *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*1) wealth quintile - wealthiest (2) / poorest (1)
+*1) wealth quintile - wealthiest (5) / poorest (1)
 *Diarrhea 
 logistic given_ORS wealth [pw=wgt] //Odds ratio 
 margins, at(wealth= (1 5)) post //marginal mean - predicted value 
@@ -172,7 +168,7 @@ putexcel I8= (exp(_b[lnrr]+invnormal(1-.05/2)*_se[lnrr]))
 
 
 *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*3) women's education - no education (1) / secondary and higher (2)
+*3) women's education - no education (1) / secondary and higher (3)
 
 *Diarrhea 
 logistic given_ORS edu [pw=wgt] //Odds ratio 
